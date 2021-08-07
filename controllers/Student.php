@@ -2,13 +2,13 @@
 require_once(BASE_PATH.'/core/BaseController.php');
 class Student extends BaseController{
 	public function __construct(){
-		$model = $this->loadModel('Student');
+		$this->model = $this->loadModel('Student');
 	}
 	
-	public function index(){		
-		$students = $model->getStudents();
+	public function index(){
+		$students = $this->model->getStudents();
 		$data = [
-			'title' => 'Students List',
+			'title' => 'Students',
 			'students' => $students
 		];
 		$this->loadView("header", $data);

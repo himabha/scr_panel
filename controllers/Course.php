@@ -6,27 +6,41 @@ class Course extends BaseController{
 		$this->model = $this->loadModel('Course');
 	}
 	
-	public function index(){	
-		$courses = $this->model->getCourses();
-		$data = [
-			'title' => 'Courses List',
-			'courses' => $courses
-		];
-		$this->loadView("header", $data);
-		$this->loadView("index", $data);
-		$this->loadView("footer", $data);
+	public function index(){
+		try{
+			$courses = $this->model->getCourses();
+			$data = [
+				'title' => 'Courses',
+				'courses' => $courses
+			];
+			$this->loadView("header", $data);
+			$this->loadView("index", $data);
+			$this->loadView("footer", $data);
+		}
+		catch(\Exception $e){
+			echo $e->getMessage();
+		}		
 	}
 	
 	public function add(){
-		echo "pre";
-		print_r($_POST);
 		$data = [
-			'title' => 'Courses List',
-			'courses' => $courses
+			'title' => 'Add Course'
 		];
 		$this->loadView("header", $data);
-		$this->loadView("index", $data);
+		$this->loadView("add", $data);
 		$this->loadView("footer", $data);
+	}
+	
+	public function save(){
+		try{
+			$course = $_POST;
+			if($this->model->addCourse($course)){
+				$this->redirect('courses');
+			}
+		}
+		catch(\Exception $e){
+			echo $e->getMessage();
+		}
 	}
 }
 

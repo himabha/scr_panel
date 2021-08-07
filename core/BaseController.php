@@ -22,5 +22,10 @@ class BaseController{
 		$base_model = new BaseModel;
 		return $base_model->loadModel($model);
 	}
+	
+	public function redirect($route){
+		header("Location: ".(_is_https() ? "https://" : "http://").$_SERVER['HTTP_HOST']."/".$route);
+		die();
+	}
 }
 ?>

@@ -7,7 +7,7 @@ class BaseModel {
 		$this->connection = $db->getConnection();
 	}
 	
-	public function loadModel($model){		
+	public function loadModel($model){	
 		require_once(BASE_PATH."/models/".$model.".php");
 		$modelName = $model.'Model';
 		$model_class = new $modelName($this->connection);

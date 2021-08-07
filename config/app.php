@@ -9,12 +9,18 @@ class App{
 	
 	public function load(){	
 		if(!empty($_SERVER['QUERY_STRING'])){
-			$q_string = trim($_SERVER['QUERY_STRING'], '/');
-			$query_strings = explode("/", $q_string);
+			$q_string = ltrim($_SERVER['QUERY_STRING'], '/');
 			$route_keys = array_keys($this->routes);
-			$route_key = array_search($query_strings[0], $route_keys);
+			$route_key = array_search($q_string, $route_keys);
 			if($route_key !== false){
 				$this->setController($this->routes[$route_keys[$route_key]]);
+				return false;
+			}else{
+				$query_strings = explode("/", $q_string);			
+				$route_key = array_search($query_strings[0], $route_keys);
+				if($route_key !== false){
+					$this->setController($this->routes[$route_keys[$route_key]]);
+				}
 			}
 		}
 		else{

@@ -1,12 +1,15 @@
 <div>
 <table>
+	<thead>
 	<tr>
 		<th>S.No.</th>
+		<th>Course</th>
 		<th>Course Detail</th>
-		<th>Course </th>
 		<th>Actions</th>
 	</tr>
-	<?php 
+	</thead>
+	<tbody id="page">
+<?php if($this->data['courses']):
 	foreach($this->data['courses'] as $key => $course){
 		?>
 		<tr>
@@ -19,6 +22,16 @@
 			</td>
 		</tr>
 		<?php
-	}?>
+	}
+else:
+?>
+	<tr><td colspan="4">No Data Found</td></tr>
+<?php
+endif;
+?>
+	</tbody>
 </table>
+<?php if($this->data['courses']):?>
+	<div id="pagination"></div>
+<?php endif;?>
 </div>
