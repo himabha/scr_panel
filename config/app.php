@@ -30,7 +30,8 @@ class App{
 					//route path from routing file
 					$route_vals = explode("/", $route_found);
 					if(count($route_vals) === count($act_query_strings) && count($route_vals) === count($r_vals)){
-						$path = rtrim(str_replace($r_vals[count($r_vals)-1], '', $route_key), "/");					
+						array_splice($r_vals, 2, count($r_vals)-2);					
+						$path = implode($r_vals, "/");				
 						$this->setController($path, $omit_strings);
 					}
 					else{

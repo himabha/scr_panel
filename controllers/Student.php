@@ -32,7 +32,7 @@ class Student extends BaseController{
 	
 	public function save(){
 		try{
-			if(isset($_POST['student_id'])){
+			if(isset($_POST['student_id']) && !empty($_POST['student_id'])){
 				$student = $_POST;
 				if($this->model->updateStudent($student)){
 					$this->redirect('students');
@@ -60,12 +60,15 @@ class Student extends BaseController{
 		}
 	}
 	
-	public function delete(){
-		if(isset($_POST) && !empty($_POST)){
-			$student = $_POST;
+	public function delete($id){
+		try{
+			$student = $this->model->getStudentById($id);
 			if($this->model->deleteStudent($student)){
 				$this->redirect('students');
 			}
+		}
+		catch(Exception $e){
+			echo $e->getMessage();
 		}
 	}
 	

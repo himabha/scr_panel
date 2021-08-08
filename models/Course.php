@@ -58,7 +58,7 @@ class CourseModel extends BaseModel{
 	public function deleteCourse($course){
 		try{
 			$stm = $this->connection->prepare("Delete from courses where id = :course_id");
-			$stm->bindValue(':course_id', $course, PDO::PARAM_INT);
+			$stm->bindValue(':course_id', $course->id, PDO::PARAM_INT);
 			return $stm->execute();
 		}
 		catch(Exception $e){

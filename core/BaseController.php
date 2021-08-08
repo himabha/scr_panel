@@ -27,7 +27,7 @@ class BaseController{
 	}
 	
 	public function redirect($route){
-		header("Location: ".(_is_https() ? "https://" : "http://").$_SERVER['HTTP_HOST']."/".$route);
+		header("Location: ".(_is_https() ? "https://" : "http://").SITE_URL."/".$route);
 		die();
 	}
 }

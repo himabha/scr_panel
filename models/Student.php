@@ -98,7 +98,7 @@ class StudentModel extends BaseModel{
 	public function deleteStudent($student){
 		try{
 			$stm = $this->connection->prepare("Delete from students where id = :student_id");
-			$stm->bindValue(':student_id', $student, PDO::PARAM_STR);
+			$stm->bindValue(':student_id', $student->id, PDO::PARAM_STR);
 			return $stm->execute();
 		}
 		catch(Exception $e){
@@ -123,10 +123,9 @@ class StudentModel extends BaseModel{
 	
 	public function getStudentsNotSubscribed(){
 		try{
-			$stm = $this->connection->prepare("Select * from students join subscriptions sc on sc.where id = :student_id");
-			$stm->bindValue(':student_id', $id, PDO::PARAM_INT);
+			$stm = $this->connection->prepare("Select * from students s where s.id NOT in(Select student_id from subscriptions)");
 			if($stm->execute()):	
-				return $stm->fetchObject();
+				return $stm->fetchAll();
 			else:
 				return false;
 			endif;

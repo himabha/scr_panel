@@ -33,7 +33,7 @@ class Course extends BaseController{
 	
 	public function save(){
 		try{
-			if(isset($_POST['course_id'])){
+			if(isset($_POST['course_id']) && !empty($_POST['course_id'])){
 				$course = $_POST;
 				if($this->model->updateCourse($course)){
 					$this->redirect('courses');
@@ -61,12 +61,15 @@ class Course extends BaseController{
 		}
 	}
 	
-	public function delete(){
-		if(isset($_POST) && !empty($_POST)){
-			$course = $_POST;
+	public function delete($id){
+		try{
+			$course = $this->model->getCourseById($id);
 			if($this->model->deleteCourse($course)){
 				$this->redirect('courses');
 			}
+		}
+		catch(Exception $e){
+			echo $e->getMessage();
 		}
 	}
 	

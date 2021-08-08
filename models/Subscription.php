@@ -57,7 +57,7 @@ class SubscriptionModel extends BaseModel{
 	public function deleteSubscription($subscription){
 		try{
 			$stm = $this->connection->prepare("Delete from subscriptions where id = :subscription_id");
-			$stm->bindValue(':subscription_id', $subscription, PDO::PARAM_INT);
+			$stm->bindValue(':subscription_id', $subscription->id, PDO::PARAM_INT);
 			return $stm->execute();
 		}
 		catch(Exception $e){

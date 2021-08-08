@@ -32,12 +32,15 @@ class Subscription extends BaseController{
 		}
 	}
 	
-	public function delete(){
-		if(isset($_POST) && !empty($_POST)){
-			$subscription = $_POST;
+	public function delete($id){
+		try{
+			$subscription = $this->model->getSubscriptionById($id);
 			if($this->model->deleteSubscription($subscription)){
 				$this->redirect('subscriptions');
 			}
+		}
+		catch(Exception $e){
+			echo $e->getMessage();
 		}
 	}
 	
@@ -66,12 +69,13 @@ class Subscription extends BaseController{
 	public function save(){
 		try{
 			if(isset($_POST) && !empty($_POST)){
-				if(isset($_POST['subscription_id'])){
+				if(isset($_POST['subscription_id']) && !empty($_POST['subscription_id'])){
 					$subscription = $_POST;
 					if($this->model->updateSubscription($subscription)){
 						$this->redirect('subscriptions');
 					}
 				}else{
+					echo "dds";
 					$subscription = $_POST;
 					if($this->model->saveSubscription($subscription)){
 						$this->redirect('subscriptions');
