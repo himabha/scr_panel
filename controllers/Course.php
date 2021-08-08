@@ -14,7 +14,7 @@ class Course extends BaseController{
 				'courses' => $courses
 			];
 			$this->loadView("header", $data);
-			$this->loadView("index", $data);
+			$this->loadView("course/index", $data);
 			$this->loadView("footer", $data);
 		}
 		catch(\Exception $e){
@@ -27,7 +27,7 @@ class Course extends BaseController{
 			'title' => 'Add Course'
 		];
 		$this->loadView("header", $data);
-		$this->loadView("add", $data);
+		$this->loadView("course/add", $data);
 		$this->loadView("footer", $data);
 	}
 	
@@ -37,6 +37,17 @@ class Course extends BaseController{
 			if($this->model->addCourse($course)){
 				$this->redirect('courses');
 			}
+		}
+		catch(\Exception $e){
+			echo $e->getMessage();
+		}
+	}
+	
+	public function search(){
+		try {
+			$course = trim($_POST['searchtext']);
+			$data['courses'] = $this->model->getCourses($course);				
+			$this->loadView('course/records', $data);
 		}
 		catch(\Exception $e){
 			echo $e->getMessage();

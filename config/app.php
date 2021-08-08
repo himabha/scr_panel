@@ -7,7 +7,7 @@ class App{
 		$this->routes = $routes;
 	}
 	
-	public function load(){	
+	public function load(){
 		if(!empty($_SERVER['QUERY_STRING'])){
 			$q_string = ltrim($_SERVER['QUERY_STRING'], '/');
 			$route_keys = array_keys($this->routes);
@@ -34,7 +34,7 @@ class App{
 		require_once($_SERVER['DOCUMENT_ROOT'].'/controllers/'.$classname.'.php');		
 		$methodname = $c_path[1];
 		$obj = new $classname;
-		echo $obj->$methodname();
+		$obj->$methodname();
 	}
 	
 	

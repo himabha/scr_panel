@@ -1,3 +1,20 @@
 body{
 	
 }
+.active{
+	color:green;
+}
+a{
+	float: left;
+	margin: 10px;
+}
+#next i{
+	margin:10px;
+}
+#prev i{
+	margin:10px;
+}
+#nextpage,#prevpage,.pagenumbers
+{
+	text-decoration:none;
+}

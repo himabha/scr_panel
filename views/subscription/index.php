@@ -1,4 +1,5 @@
 <div class="records">
+
 <div class="control_panel">
 	<div class="left-side">
 		<select id="pagelimit" onchange="onPageLimitSelect();">
@@ -9,27 +10,23 @@
 		</select>
 	</div>
 	<div class="right-side">
-		<input type="text" name="search" onblur="search(this, 'students')">
+		<input type="text" name="search" onblur="search(this, 'subscriptions')">
 	</div>
 </div>
 <table>
 	<thead>
 	<tr>
 		<th>S.No.</th>
-		<th>First Name</th>
-		<th>Last Name</th>
-		<th>Email</th>
-		<th>DOB</th>
-		<th>Contact No.</th>
-		<th>Status</th>
+		<th>Student</th>
+		<th>Course</th>
 		<th>Actions</th>
 	</tr>
 	</thead>
 	<tbody id="page">
-	<?php require_once('records.php');?>
+		<?php require_once('records.php');?>
 	</tbody>
 </table>
-<?php if($this->data['students']):?>
+<?php if($this->data['subscriptions']):?>
 	<div id="pagination"></div>
 <?php endif;?>
 </div>

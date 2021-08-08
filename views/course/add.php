@@ -1,6 +1,6 @@
 <?php ?>
 <div class="form-group">
-<form action="/courses/save" id="add_student" method="post">
+<form action="/courses/save" id="add_course" method="post">
 	<div class="field-group">
 		<label for="title">Course Name:</label>
 		<input type="text" name="title" required />

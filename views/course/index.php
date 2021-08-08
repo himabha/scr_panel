@@ -1,4 +1,18 @@
-<div>
+<div class="records">
+
+<div class="control_panel">
+	<div class="left-side">
+		<select id="pagelimit" onchange="onPageLimitSelect();">
+			<option value="5">5</option>
+			<option value="10">10</option>
+			<option value="15">15</option>
+			<option value="20">20</option>
+		</select>
+	</div>
+	<div class="right-side">
+		<input type="text" name="search" onblur="search(this, 'courses')">
+	</div>
+</div>
 <table>
 	<thead>
 	<tr>
@@ -9,26 +23,7 @@
 	</tr>
 	</thead>
 	<tbody id="page">
-<?php if($this->data['courses']):
-	foreach($this->data['courses'] as $key => $course){
-		?>
-		<tr>
-			<td><?= $key + 1 ?></td>
-			<td><?= $course->course_name ?></td>
-			<td><?= $course->detail ?></td>
-			<td>
-				<span><a href="javascript:void();" id="edit">Edit</a></span>
-				<span><a href="javascript:void();" id="delete">Delete</a></span>
-			</td>
-		</tr>
-		<?php
-	}
-else:
-?>
-	<tr><td colspan="4">No Data Found</td></tr>
-<?php
-endif;
-?>
+		<?php require_once('records.php');?>
 	</tbody>
 </table>
 <?php if($this->data['courses']):?>
