@@ -23,20 +23,25 @@ class App{
 					$str = implode($query_strings, "/")."/";
 					$pattern = '/^'.preg_quote($str, '/') .'[(:any)\/*]+$/';
 					$routes = preg_grep($pattern, $route_keys);
-					$route_found = reset($routes);
-					$route_key = $this->routes[$route_found];
-					//controller path from routing file
-					$r_vals = explode("/", $route_key);
-					//route path from routing file
-					$route_vals = explode("/", $route_found);
-					if(count($route_vals) === count($act_query_strings) && count($route_vals) === count($r_vals)){
-						array_splice($r_vals, 2, count($r_vals)-2);					
-						$path = implode($r_vals, "/");				
-						$this->setController($path, $omit_strings);
-					}
-					else{
-						throw new Exception("Route does not match.");
-					}
+					if(!empty($routes)):
+						$route_found = reset($routes);
+						$route_key = $this->routes[$route_found];
+						//controller path from routing file
+						$r_vals = explode("/", $route_key);
+						//route path from routing file
+						$route_vals = explode("/", $route_found);
+						if(count($route_vals) === count($act_query_strings) && count($route_vals) === count($r_vals)){
+							array_splice($r_vals, 2, count($r_vals)-2);					
+							$path = implode($r_vals, "/");				
+							$this->setController($path, $omit_strings);
+						}
+						else{
+							throw new Exception("Route does not match.");
+						}
+					
+					else:
+						throw new Exception("Route not found.");
+					endif;
 				}else{
 					$route_key = array_search($query_strings[0], $route_keys);
 					if($route_key !== false){
