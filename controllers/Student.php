@@ -16,7 +16,7 @@ class Student extends BaseController{
 			$this->loadView("student/index", $data);
 			$this->loadView("footer", $data);
 		}
-		catch(\Exception $e){
+		catch(Exception $e){
 			echo $e->getMessage();
 		}
 	}
@@ -32,12 +32,19 @@ class Student extends BaseController{
 	
 	public function save(){
 		try{
-			$student = $_POST;
-			if($this->model->addStudent($student)){
-				$this->redirect('students');
+			if(isset($_POST['student_id'])){
+				$student = $_POST;
+				if($this->model->updateStudent($student)){
+					$this->redirect('students');
+				}
+			}else{
+				$student = $_POST;
+				if($this->model->addStudent($student)){
+					$this->redirect('students');
+				}
 			}
 		}
-		catch(\Exception $e){
+		catch(Exception $e){
 			echo $e->getMessage();
 		}
 	}
@@ -48,33 +55,36 @@ class Student extends BaseController{
 			$data['students'] = $this->model->getStudents($student);				
 			$this->loadView('student/records', $data);
 		}
-		catch(\Exception $e){
+		catch(Exception $e){
 			echo $e->getMessage();
 		}
 	}
 	
-	public function subscribe(){
+	public function delete(){
 		if(isset($_POST) && !empty($_POST)){
-			$subscription = $_POST;
-			$sc_model = $this->loadModel('Subscription');
-			if($sc_model->saveSubscription($subscription)){
-				$this->redirect('subscriptions');
+			$student = $_POST;
+			if($this->model->deleteStudent($student)){
+				$this->redirect('students');
 			}
 		}
-		else{
-			$students = $this->model->getStudents();
-			$c_model = $this->loadModel('Course');
-			$courses = $c_model->getCourses();
+	}
+	
+	public function edit($id){
+		try{
+			$student = $this->model->getStudentById($id);
 			$data = [
-				'title' => 'Subscribe to Course',
-				'students' => $students,
-				'courses' => $courses
-			];
+					'title' => 'Edit Student',
+					'student' => $student
+				];
 			$this->loadView("header", $data);
-			$this->loadView("student/subscribe", $data);
+			$this->loadView("student/edit", $data);
 			$this->loadView("footer", $data);
 		}
+		catch(Exception $e){
+			echo $e->getMessage();
+		}
 	}
+
 }
 
 ?>

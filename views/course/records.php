@@ -7,8 +7,8 @@
 			<td><?= $course->course_name ?></td>
 			<td><?= $course->detail ?></td>
 			<td>
-				<span><a href="javascript:void();" id="edit">Edit</a></span>
-				<span><a href="javascript:void();" id="delete">Delete</a></span>
+				<span><a href="/courses/edit/<?=$course->id?>" id="edit">Edit</a></span>
+				<span><a href="/courses/delete/<?=$course->id?>" id="delete">Delete</a></span>
 			</td>
 		</tr>
 		<?php

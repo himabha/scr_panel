@@ -16,10 +16,31 @@ class App{
 				$this->setController($this->routes[$route_keys[$route_key]]);
 				return false;
 			}else{
-				$query_strings = explode("/", $q_string);			
-				$route_key = array_search($query_strings[0], $route_keys);
-				if($route_key !== false){
-					$this->setController($this->routes[$route_keys[$route_key]]);
+				$query_strings = explode("/", $q_string);
+				if(count($query_strings) > 2){
+					$act_query_strings = $query_strings;
+					$omit_strings = array_splice($query_strings, 2, count($query_strings)-2);
+					$str = implode($query_strings, "/")."/";
+					$pattern = '/^'.preg_quote($str, '/') .'[(:any)\/*]+$/';
+					$routes = preg_grep($pattern, $route_keys);
+					$route_found = reset($routes);
+					$route_key = $this->routes[$route_found];
+					//controller path from routing file
+					$r_vals = explode("/", $route_key);
+					//route path from routing file
+					$route_vals = explode("/", $route_found);
+					if(count($route_vals) === count($act_query_strings) && count($route_vals) === count($r_vals)){
+						$path = rtrim(str_replace($r_vals[count($r_vals)-1], '', $route_key), "/");					
+						$this->setController($path, $omit_strings);
+					}
+					else{
+						throw new Exception("Route does not match.");
+					}
+				}else{
+					$route_key = array_search($query_strings[0], $route_keys);
+					if($route_key !== false){
+						$this->setController($this->routes[$route_keys[$route_key]]);
+					}
 				}
 			}
 		}
@@ -28,13 +49,17 @@ class App{
 		}
 	}
 	
-	public function setController($c_path){
+	public function setController($c_path, $params = []){
 		$c_path = explode("/", $c_path);
 		$classname = ucfirst($c_path[0]);
 		require_once($_SERVER['DOCUMENT_ROOT'].'/controllers/'.$classname.'.php');		
 		$methodname = $c_path[1];
 		$obj = new $classname;
-		$obj->$methodname();
+		if(!empty($params)):
+			call_user_func_array(array($obj, $methodname), $params);
+		else:
+			$obj->$methodname();
+		endif;
 	}
 	
 	

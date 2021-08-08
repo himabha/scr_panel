@@ -38,5 +38,47 @@ class CourseModel extends BaseModel{
 		$stm->bindValue(':modified_at', date("Y-m-d H:i:s"), PDO::PARAM_STR);
 		return $stm->execute();
 	}
+	
+	public function updateCourse($course){
+		try
+		{
+			$query = "Update courses set course_name = :course_name, detail = :detail, modified_at = :modified_at where id = :course_id";
+			$stm = $this->connection->prepare($query);
+			$stm->bindValue(':course_id', $course['course_id'], PDO::PARAM_STR);
+			$stm->bindValue(':course_name', $course['title'], PDO::PARAM_STR);
+			$stm->bindValue(':detail', $course['detail'], PDO::PARAM_STR);
+			$stm->bindValue(':modified_at', date("Y-m-d H:i:s"), PDO::PARAM_STR);
+			return $stm->execute();
+		}
+		catch(Exception $e){
+			echo $e->getMessage();
+		}
+	}
+	
+	public function deleteCourse($course){
+		try{
+			$stm = $this->connection->prepare("Delete from courses where id = :course_id");
+			$stm->bindValue(':course_id', $course, PDO::PARAM_INT);
+			return $stm->execute();
+		}
+		catch(Exception $e){
+			echo $e->getMessage();
+		}
+	}
+	
+	public function getCourseById($id){
+		try{
+			$stm = $this->connection->prepare("Select * from courses where id = :course_id");
+			$stm->bindValue(':course_id', $id, PDO::PARAM_INT);
+			if($stm->execute()):	
+				return $stm->fetchObject();
+			else:
+				return false;
+			endif;
+		}
+		catch(Exception $e){
+			echo $e->getMessage();
+		}
+	}
 }
 ?>

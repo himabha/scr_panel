@@ -8,14 +8,17 @@ class BaseController{
 	}
 	
 	public function loadView($filename, $data = []){
-		if(file_exists($_SERVER['DOCUMENT_ROOT'].'/views/'.strtolower(get_class($this).'/'.$filename.'.php'))){
-			$filepath = $_SERVER['DOCUMENT_ROOT'].'/views/'.strtolower(get_class($this).'/'.$filename.'.php');
-		}
-		else if(file_exists($_SERVER['DOCUMENT_ROOT'].'/views/'.$filename.'.php')){
+		/* if(file_exists($_SERVER['DOCUMENT_ROOT'].'/views/'.strtolower(get_class($this).'/'.$filename.'.php'))){
+			echo $filepath = $_SERVER['DOCUMENT_ROOT'].'/views/'.strtolower(get_class($this).'/'.$filename.'.php');
+		} */
+		if(file_exists($_SERVER['DOCUMENT_ROOT'].'/views/'.$filename.'.php')){
 			$filepath = $_SERVER['DOCUMENT_ROOT'].'/views/'.$filename.'.php';
+			$view = new BaseView;
+			$view->loadView($filepath, $data);
 		}
-		$view = new BaseView;
-		$view->loadView($filepath, $data);
+		else{
+			throw new Exception('View not found');
+		}
 	}
 	
 	public function loadModel($model){

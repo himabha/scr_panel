@@ -17,7 +17,7 @@ class Course extends BaseController{
 			$this->loadView("course/index", $data);
 			$this->loadView("footer", $data);
 		}
-		catch(\Exception $e){
+		catch(Exception $e){
 			echo $e->getMessage();
 		}		
 	}
@@ -33,12 +33,19 @@ class Course extends BaseController{
 	
 	public function save(){
 		try{
-			$course = $_POST;
-			if($this->model->addCourse($course)){
-				$this->redirect('courses');
+			if(isset($_POST['course_id'])){
+				$course = $_POST;
+				if($this->model->updateCourse($course)){
+					$this->redirect('courses');
+				}
+			}else{
+				$course = $_POST;
+				if($this->model->addCourse($course)){
+					$this->redirect('courses');
+				}
 			}
 		}
-		catch(\Exception $e){
+		catch(Exception $e){
 			echo $e->getMessage();
 		}
 	}
@@ -49,7 +56,32 @@ class Course extends BaseController{
 			$data['courses'] = $this->model->getCourses($course);				
 			$this->loadView('course/records', $data);
 		}
-		catch(\Exception $e){
+		catch(Exception $e){
+			echo $e->getMessage();
+		}
+	}
+	
+	public function delete(){
+		if(isset($_POST) && !empty($_POST)){
+			$course = $_POST;
+			if($this->model->deleteCourse($course)){
+				$this->redirect('courses');
+			}
+		}
+	}
+	
+	public function edit($id){
+		try{
+			$course = $this->model->getCourseById($id);
+			$data = [
+					'title' => 'Edit Course',
+					'course' => $course
+				];
+			$this->loadView("header", $data);
+			$this->loadView("course/edit", $data);
+			$this->loadView("footer", $data);
+		}
+		catch(Exception $e){
 			echo $e->getMessage();
 		}
 	}

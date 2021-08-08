@@ -1,4 +1,5 @@
 <?php ?>
+<input type="hidden" name="subscription_id" value="<?=isset($this->data['subscription']) ? $this->data['subscription']->id : ''?>">
 <div class="field-group">
 	<label for="detail">Student</label>
 	<select name="student" required>
@@ -6,7 +7,7 @@
 		<?php if($this->data['students']):
 				foreach($this->data['students'] as $key => $student){
 					?>
-					<option value="<?=$student->id?>"><?= $student->firstname . $student->lastname?></option>
+					<option value="<?=$student->id?>" <?=(isset($this->data['subscription']) && $this->data['subscription']->student_id === $student->id) ? 'selected' : ''?>><?= $student->firstname . $student->lastname?></option>
 					<?php
 				}
 				endif;
@@ -20,7 +21,7 @@
 		<?php if($this->data['courses']):
 				foreach($this->data['courses'] as $key => $course){
 					?>
-					<option value="<?=$course->id?>"><?= $course->course_name?></option>
+					<option value="<?=$course->id?>" <?=(isset($this->data['subscription']) && $this->data['subscription']->course_id === $course->id) ? 'selected' : ''?>><?= $course->course_name?></option>
 					<?php
 				}
 				endif;
