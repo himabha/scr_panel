@@ -7,8 +7,10 @@
 			<td><?= $course->course_name ?></td>
 			<td><?= $course->detail ?></td>
 			<td>
-				<a href="/courses/edit/<?=$course->id?>" id="edit">Edit</a>
-				<a href="/courses/delete/<?=$course->id?>" id="delete">Delete</a>
+				<a href="/courses/edit/<?=$course->id?>" id="edit"><span class="material-icons">
+mode_edit</span></a>
+				<a href="/courses/delete/<?=$course->id?>" id="delete"><span class="material-icons">
+delete</span></a>
 			</td>
 		</tr>
 		<?php

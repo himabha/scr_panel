@@ -10,8 +10,10 @@
 			<td><?= $student->contact_no ?></td>
 			<td><?= ($student->active) ? 'Active': 'In-active' ?></td>
 			<td>
-				<a href="/students/edit/<?=$student->id?>" id="edit">Edit</a>
-				<a href="/students/delete/<?=$student->id?>" id="delete">Delete</a>
+				<a href="/students/edit/<?=$student->id?>" id="edit"><span class="material-icons">
+mode_edit</span></a>
+				<a href="/students/delete/<?=$student->id?>" id="delete"><span class="material-icons">
+delete</span></a>
 			</td>
 		</tr>
 		<?php

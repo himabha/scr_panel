@@ -1,3 +1,26 @@
+/* fallback */
+@font-face {
+  font-family: 'Material Icons';
+  font-style: normal;
+  font-weight: 400;
+  src: url(../icons/flUhRq6tzZclQEJ-Vdg-IuiaDsNc.woff2) format('woff2');
+}
+
+.material-icons {
+  font-family: 'Material Icons';
+  font-weight: normal;
+  font-style: normal;
+  font-size: 24px;
+  line-height: 1;
+  letter-spacing: normal;
+  text-transform: none;
+  display: inline-block;
+  white-space: nowrap;
+  word-wrap: normal;
+  direction: ltr;
+  -webkit-font-feature-settings: 'liga';
+  -webkit-font-smoothing: antialiased;
+}
 @font-face {
   font-family: openSansRegularFont;
   src: url(../fonts/OpenSans-Regular.ttf);
@@ -162,7 +185,7 @@ a:not(.button){
     margin: 0;
 }
 .nav-links ul li{
-	padding: 0 0 0 40px;
+	padding: 0 20px 0px 20px;
 }
 .nav-links ul li a{
 	color: #9d9d9d;
@@ -172,6 +195,9 @@ a:not(.button){
 	font-size: 24px;
     font-weight: openSansBoldFont;
 	margin: 10px 0;
+}
+.material-icons{
+	color: #337ab7;
 }
 /*pagination */
 #pagination{
