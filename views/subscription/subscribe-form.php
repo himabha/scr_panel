@@ -1,7 +1,7 @@
 <?php ?>
 <input type="hidden" name="subscription_id" value="<?=isset($this->data['subscription']) ? $this->data['subscription']->id : ''?>">
 <div class="field-group">
-	<label for="detail">Student</label>
+	<label for="detail">Student:</label>
 	<select name="student" required>
 		<option value="">Select Student</option>
 		<?php if($this->data['students']):
@@ -15,7 +15,7 @@
 	</select>
 </div>
 <div class="field-group">
-	<label for="detail">Course</label>
+	<label for="detail">Course:</label>
 	<select name="course" required>
 		<option value="">Select Course</option>
 		<?php if($this->data['courses']):

@@ -26,7 +26,7 @@ class Student extends BaseController{
 			'title' => 'Add Student'
 		];
 		$this->loadView("header", $data);
-		$this->loadView("add", $data);
+		$this->loadView("student/add", $data);
 		$this->loadView("footer", $data);
 	}
 	

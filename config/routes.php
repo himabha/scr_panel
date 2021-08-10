@@ -1,5 +1,6 @@
 <?php
 $routes['default'] = 'student/index';
+//$routes['login'] = 'auth/login';
 $routes['students'] = 'student/index';
 $routes['students/add'] = 'student/add';
 $routes['students/edit/(:any)'] = 'student/edit/$1';

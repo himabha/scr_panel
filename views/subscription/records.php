@@ -7,8 +7,8 @@
 			<td><?= $subscription->fullname ?></td>
 			<td><?= $subscription->course_name ?></td>
 			<td>
-				<span><a href="/subscriptions/edit/<?=$subscription->id?>" id="edit">Edit</a></span>
-				<span><a href="/subscriptions/delete/<?=$subscription->id?>" id="delete">Delete</a></span>
+				<a href="/subscriptions/edit/<?=$subscription->id?>" id="edit">Edit</a>
+				<a href="/subscriptions/delete/<?=$subscription->id?>" id="delete">Delete</a>
 			</td>
 		</tr>
 		<?php
