@@ -1,8 +1,9 @@
 <?php 
 require_once(BASE_PATH.'/core/BaseController.php');
 class Course extends BaseController{
-	
-	public function __construct(){
+	private $activeRoute;
+	public function __construct($activeRoute){
+		$this->activeRoute = $activeRoute;
 		$this->model = $this->loadModel('Course');
 	}
 	
@@ -10,6 +11,7 @@ class Course extends BaseController{
 		try{
 			$courses = $this->model->getCourses();
 			$data = [
+				'activeRoute' => $this->activeRoute,
 				'title' => 'Courses',
 				'courses' => $courses
 			];
@@ -24,6 +26,7 @@ class Course extends BaseController{
 	
 	public function add(){
 		$data = [
+			'activeRoute' => $this->activeRoute,
 			'title' => 'Add Course'
 		];
 		$this->loadView("header", $data);
@@ -77,12 +80,31 @@ class Course extends BaseController{
 		try{
 			$course = $this->model->getCourseById($id);
 			$data = [
+					'activeRoute' => $this->activeRoute,
 					'title' => 'Edit Course',
 					'course' => $course
 				];
 			$this->loadView("header", $data);
 			$this->loadView("course/edit", $data);
 			$this->loadView("footer", $data);
+		}
+		catch(Exception $e){
+			echo $e->getMessage();
+		}
+	}
+	
+	public function sort(){
+		try{
+			$searchValue = $_POST['searchValue'];
+			$orderBy = $_POST['columnName'];
+			$sort = $_POST['sort'];
+			$sort = ($sort >= 0) ? 'asc' : 'desc';
+			$data = [
+				'courses' => $this->model->getCourses($searchValue, $orderBy, $sort),
+				'orderBy' => $orderBy,
+				'sort' => $sort
+			];
+			$this->loadView('course/records', $data);
 		}
 		catch(Exception $e){
 			echo $e->getMessage();

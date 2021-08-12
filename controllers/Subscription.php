@@ -1,7 +1,8 @@
 <?php 
 require_once(BASE_PATH.'/core/BaseController.php');
 class Subscription extends BaseController{
-	public function __construct(){
+	public function __construct($activeRoute){
+		$this->activeRoute = $activeRoute;
 		$this->model = $this->loadModel('Subscription');
 	}
 	
@@ -9,6 +10,7 @@ class Subscription extends BaseController{
 		try{
 			$subscriptions = $this->model->getSubscriptions();
 			$data = [
+				'activeRoute' => $this->activeRoute,
 				'title' => 'Subscriptions',
 				'subscriptions' => $subscriptions
 			];
@@ -52,6 +54,7 @@ class Subscription extends BaseController{
 			$c_model = $this->loadModel('Course');
 			$courses = $c_model->getCourses();
 			$data = [
+					'activeRoute' => $this->activeRoute,
 					'title' => 'Edit Subscription',
 					'subscription' => $subscription,
 					'students' => $students,
@@ -75,7 +78,6 @@ class Subscription extends BaseController{
 						$this->redirect('subscriptions');
 					}
 				}else{
-					echo "dds";
 					$subscription = $_POST;
 					if($this->model->saveSubscription($subscription)){
 						$this->redirect('subscriptions');
@@ -95,6 +97,7 @@ class Subscription extends BaseController{
 			$c_model = $this->loadModel('Course');
 			$courses = $c_model->getCourses();
 			$data = [
+				'activeRoute' => $this->activeRoute,
 				'title' => 'Subscribe to Course',
 				'students' => $students,
 				'courses' => $courses
@@ -102,6 +105,24 @@ class Subscription extends BaseController{
 			$this->loadView("header", $data);
 			$this->loadView("subscription/subscribe", $data);
 			$this->loadView("footer", $data);
+		}
+		catch(Exception $e){
+			echo $e->getMessage();
+		}
+	}
+	
+	public function sort(){
+		try{
+			$searchValue = $_POST['searchValue'];
+			$orderBy = $_POST['columnName'];
+			$sort = $_POST['sort'];
+			$sort = ($sort >= 0) ? 'asc' : 'desc';
+			$data = [
+				'subscriptions' => $this->model->getSubscriptions($searchValue, $orderBy, $sort),
+				'orderBy' => $orderBy,
+				'sort' => $sort
+			];
+			$this->loadView('subscription/records', $data);
 		}
 		catch(Exception $e){
 			echo $e->getMessage();

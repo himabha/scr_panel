@@ -10,20 +10,20 @@
 		</div>
 		<div class="right-side">
 			<a href="/students/add" class="button">Add Student</a>
-			<input type="text" name="search" placeholder="Search..." class="filter-input" onblur="search(this, 'students')">
+			<input type="text" name="search" placeholder="Search..." class="filter-input" onkeyup="search(this, 'students')">
 		</div>
 	</div>
 	<div class="list_table row">
 		<table>
 			<thead>
 			<tr>
-				<th>S.No.</th>
-				<th>First Name</th>
-				<th>Last Name</th>
-				<th>Email</th>
-				<th>DOB</th>
-				<th>Contact No.</th>
-				<th>Status</th>
+				<th onclick="sort(this, 'id', 'students')" data-order="1" class="active">S.No. <span class="material-icons sort">sort</span></th>
+				<th onclick="sort(this, 'firstname', 'students')" data-order="0">First Name <span class="material-icons sort">sort</span></th>
+				<th onclick="sort(this, 'lastname', 'students')" data-order="0">Last Name <span class="material-icons sort">sort</span></th>
+				<th onclick="sort(this, 'email', 'students')" data-order="0">Email <span class="material-icons sort">sort</span></th>
+				<th onclick="sort(this, 'dob', 'students')" data-order="0">DOB <span class="material-icons sort">sort</span></th>
+				<th onclick="sort(this, 'contact_no', 'students')" data-order="0">Contact No. <span class="material-icons sort">sort</span></th>
+				<th onclick="sort(this, 'active', 'students')" data-order="0">Status <span class="material-icons sort">sort</span></th>
 				<th>Actions</th>
 			</tr>
 			</thead>
@@ -32,7 +32,7 @@
 			</tbody>
 		</table>
 	</div>
-	<div class="pagination row">
+	<div class="pagination">
 		<?php if($this->data['students']):?>
 			<ul id="pagination"></ul>
 		<?php endif;?>

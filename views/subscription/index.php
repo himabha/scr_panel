@@ -10,16 +10,16 @@
 		</div>
 		<div class="right-side">
 			<a href="/subscriptions/subscribe" class="button">Subscribe Student</a>
-			<input type="text" name="search" placeholder="Search..." class="filter-input" onblur="search(this, 'subscriptions')">
+			<input type="text" name="search" placeholder="Search..." class="filter-input" onkeyup="search(this, 'subscriptions')">
 		</div>
 	</div>
 	<div class="list_table row">
 		<table>
 			<thead>
 			<tr>
-				<th>S.No.</th>
-				<th>Student</th>
-				<th>Course</th>
+				<th onclick="sort(this, 'id', 'subscriptions')" data-order="1" class="active">S.No. <span class="material-icons sort">sort</span></th>
+				<th onclick="sort(this, 'fullname', 'subscriptions')" data-order="0">Student <span class="material-icons sort">sort</span></th>
+				<th onclick="sort(this, 'course', 'subscriptions')" data-order="0">Course <span class="material-icons sort">sort</span></th>
 				<th>Actions</th>
 			</tr>
 			</thead>
@@ -28,7 +28,7 @@
 			</tbody>
 		</table>
 	</div>
-	<div class="pagination row">
+	<div class="pagination">
 		<?php if($this->data['subscriptions']):?>
 			<ul id="pagination"></ul>
 		<?php endif;?>

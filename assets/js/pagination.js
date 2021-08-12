@@ -20,19 +20,19 @@ function onPageLimitSelect(){
 	var number_pages = Math.ceil(size / pagelimit);
 	console.log(pagelimit, number_pages);
 	var pagination = "";
-	pagination += "<li id='prevpage'><a href='javascript:prevpage(" + pagelimit + ");'>Prev</a></li>";
+	pagination += "<li id='prevpage' onclick='javascript:prevpage(" + pagelimit + ");'><a href='javascript:void(0);'>Prev</a></li>";
 	for (var i = 0; i < number_pages; i++) {
-		pagination += "<li class='pagenumbers' id='page_" + (i + 1) + "'><a href='javascript:gotopage(" + (i + 1) + ", "+pagelimit +")'>" + (i + 1) + "</a></li>";
+		pagination += "<li class='pagenumbers' id='page_" + (i + 1) + "' onclick='javascript:gotopage(" + (i + 1) + ", "+pagelimit +")'><a href='javascript:void(0)'>" + (i + 1) + "</a></li>";
 	}
 
-	pagination += "<li id='nextpage'><a href='javascript:nextpage("+ pagelimit +")'>Next</a></li>";
+	pagination += "<li id='nextpage' onclick='nextpage("+ pagelimit +")'><a href='javascript:void(0)'>Next</a></li>";
 	$("#pagination").html(pagination);
 	$("#page_1").addClass("active");
 	//page1
 	var pagechild = $(".pagenumbers");
 
 	if ($('#page_' + (pagechild.length)).css("display") === "none") {
-		$("#nextpage").before("<li class='prevnext'>...</li>");
+		$("#nextpage").before("<li class='prevnext' id='nexti'><span class='material-icons'>more_horiz</span></li>");
 	}
 	for (var i = 1; i <=5; i++) {
 		$("#page_" + i).css("display", "block");
@@ -42,7 +42,7 @@ function onPageLimitSelect(){
 	}
 
 	if ($('#page_' + (pagechild.length)).css("display") === "none") {
-		$("#nextpage").before("<li class='prevnext' id='nexti'>...</li>");
+		$("#nextpage").before("<li class='prevnext' id='nexti'><span class='material-icons'>more_horiz</span></li>");
 	}
 }
 
@@ -72,21 +72,21 @@ function gotopage(pageno, pagelimit) {
         $(".prevnext").remove();
     } else {
         $(".prevnext").remove();
-        $("#nextpage").before("<li class='prevnext' id='nexti'>...</li>");
+        $("#nextpage").before("<li class='prevnext' id='nexti'><span class='material-icons'>more_horiz</span></li>");
     }
     if ($('#page_1').css('display') === 'block') {
         $("#previ").remove();
     } else {
         $("#previ").remove();
-        $("#prevpage").after("<li class='prevnext' id='previ'>...</li>");
+        $("#prevpage").after("<li class='prevnext' id='previ'><span class='material-icons'>more_horiz</span></li>");
     }
 
 }
 
 function prevpage(pagelimit) {
-    if ($("#page_1").hasClass("active") != true) {
+    if (!$("#page_1").hasClass("active")) {
         $("#page").children().addClass("hide");
-        var abc = $(".active").attr("id").split("_");
+        var abc = $(".pagenumbers.active").attr("id").split("_");
         var start = (parseInt(abc[1]) - 2) * pagelimit;
         var end = (parseInt(abc[1]) - 2) * pagelimit + pagelimit;
         for (var l = start; l < end; l++) {
@@ -114,13 +114,13 @@ function prevpage(pagelimit) {
         $(".prevnext").remove();
     } else {
         $(".prevnext").remove();
-        $("#nextpage").before("<li class='prevnext' id='nexti'>...</li>");
+        $("#nextpage").before("<li class='prevnext' id='nexti'><span class='material-icons'>more_horiz</span></li>");
     }
     if ($('#page_1').css("display") === "block") {
         $("#previ").remove();
     } else {
         $("#previ").remove();
-        $("#prevpage").after("<li class='prevnext' id='previ'>...</li>");
+        $("#prevpage").after("<li class='prevnext' id='previ'><span class='material-icons'>more_horiz</span></li>");
     }
 }
 
@@ -132,17 +132,14 @@ function nextpage(pagelimit) {
     if ($("#page_" + total_page).hasClass("active") != true) {
 
         $("#page").children().addClass("hide");
-        var abc = $(".active").attr("id").split("_");
+        var abc = $(".pagenumbers.active").attr("id").split("_");
         var start = parseInt(abc[1]) * pagelimit;
         var end = parseInt(abc[1]) * pagelimit + pagelimit;
-        console.log(start);
-        console.log(end);
         for (var l = start; l < end; l++) {
 
             $("#page").children().eq(l).removeClass("hide").addClass("show");
         }
         var p_no = parseInt(abc[1]) + 1;
-        console.log(p_no);
         $("#page_" + p_no).addClass("active");
         $("#page_" + p_no).siblings().removeClass("active");
     }
@@ -162,13 +159,13 @@ function nextpage(pagelimit) {
         $(".prevnext").remove();
     } else {
         $(".prevnext").remove();
-        $("#nextpage").before("<li class='prevnext' id='nexti'>...</li>");
+        $("#nextpage").before("<li class='prevnext' id='nexti'><span class='material-icons'>more_horiz</span></li>");
     }
 
     if ($('#page_1').css("display") === "block") {
         $(".prevnext").remove();
     } else {
         $(".prevnext").remove();
-        $("#prevpage").after("<li class='prevnext'>...</li>");
+        $("#prevpage").after("<li class='prevnext' id='previ'><span class='material-icons'>more_horiz</span></li>");
     }
 }

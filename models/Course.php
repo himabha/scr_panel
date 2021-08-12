@@ -10,12 +10,13 @@ class CourseModel extends BaseModel{
 		return $this->tableName;
 	}
 	
-	public function getCourses($searchBy = ''){
+	public function getCourses($searchBy = '', $orderBy = 'id', $sort = 'asc'){
 		$where = "";
 		if(isset($searchBy) && !empty($searchBy)){
 			$where = " where course_name like :course_name OR detail like :detail OR created_at like :created_at OR modified_at like :modified_at";
 		}
-		$query = "Select * from courses".$where;
+		$orderBy = " order by ".$orderBy." ".$sort;
+		$query = "Select * from courses".$where.$orderBy;
 		$stm = $this->connection->prepare($query);
 		if(isset($searchBy) && !empty($searchBy)){
 			$stm->bindValue(':course_name', '%'.$searchBy.'%', PDO::PARAM_STR);

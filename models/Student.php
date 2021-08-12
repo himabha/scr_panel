@@ -11,7 +11,7 @@ class StudentModel extends BaseModel{
 		return $this->tableName;
 	}
 	
-	public function getStudents($searchBy = ''){
+	public function getStudents($searchBy = '', $orderBy = 'id', $sort = 'asc'){
 		try{
 			$where = "";
 			if(isset($searchBy) && !empty($searchBy)){
@@ -24,7 +24,8 @@ class StudentModel extends BaseModel{
 					$where .= " OR active = :active";
 				}
 			}
-			$query = "Select * from students".$where;
+			$orderBy = " order by ".$orderBy." ".$sort;
+			$query = "Select * from students".$where.$orderBy;
 			$stm = $this->connection->prepare($query);
 			if(isset($searchBy) && !empty($searchBy)){
 				$stm->bindValue(':firstname', '%'.$searchBy.'%', PDO::PARAM_STR);
@@ -58,11 +59,10 @@ class StudentModel extends BaseModel{
 	public function addStudent($student){
 		try
 		{
-			$stm = $this->connection->prepare("Insert into students values('', :firstname, :lastname, :email, :password, :dob, :contact_no, :active, :created_at, :modified_at)");
+			$stm = $this->connection->prepare("Insert into students values('', :firstname, :lastname, :email, :dob, :contact_no, :active, :created_at, :modified_at)");
 			$stm->bindValue(':firstname', $student['firstname'], PDO::PARAM_STR);
 			$stm->bindValue(':lastname', $student['lastname'], PDO::PARAM_STR);
 			$stm->bindValue(':email', $student['email'], PDO::PARAM_STR);
-			$stm->bindValue(':password', md5($student['password']), PDO::PARAM_STR);
 			$stm->bindValue(':dob', $student['dob'], PDO::PARAM_STR);
 			$stm->bindValue(':contact_no', $student['contact_no'], PDO::PARAM_STR);
 			$stm->bindValue(':active', $student['status'], PDO::PARAM_INT);

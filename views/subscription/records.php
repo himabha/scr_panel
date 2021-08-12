@@ -3,9 +3,9 @@
 	foreach($this->data['subscriptions'] as $key => $subscription){
 		?>
 		<tr>
-			<td><?= $key + 1 ?></td>			
+			<td><?= (isset($this->data['orderBy']) && isset($this->data['sort']) && $this->data['orderBy'] == 'id' && $this->data['sort'] == 'desc') ? count($this->data['subscriptions']) - $key : $key + 1 ?></td>		
 			<td><?= $subscription->fullname ?></td>
-			<td><?= $subscription->course_name ?></td>
+			<td><?= $subscription->course ?></td>
 			<td>
 				<a href="/subscriptions/edit/<?=$subscription->id?>" id="edit"><span class="material-icons">
 mode_edit</span></a>

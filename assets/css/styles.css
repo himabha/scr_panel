@@ -35,6 +35,9 @@ html, body{
 	margin: 0;
 	font-family: openSansRegularFont;
 }
+body{
+	background: #80808033;
+}
 .container{
     padding-right: 15px;
     padding-left: 15px;
@@ -65,30 +68,41 @@ html, body{
 	display: flex;
     margin: 10px 0;
     width: 100%;
+	justify-content: space-between;
 }
-table{
+a{
+	color: #337ab7;
+}
+.list_table table{
 	width: 100%;
 	border-collapse: collapse;
 	font-size: 14px;
 }
-table tr.show{
+.list_table table tr.show{
 	display: table-row;
 }
-table tr.hide{
+.list_table table tr.hide{
 	display: none;
 }
-table tr:nth-child(even){
+.list_table table tr:nth-child(even){
 	background-color: #e9ecef;
 }
-td, th{
-	padding: 5px 7px;
+.list_table table .show{
+	display: table-cell;
 }
-th {
-    background-color: #d4d4d4;
+.list_table table .hide{
+	display: none;
+}
+.list_table table th{
+	cursor: pointer;
+	background-color: #d4d4d4;
     padding-top: 7px;
     padding-bottom: 7px;
     text-align: left;
     color: #121213;
+}
+td, th{
+	padding: 5px 7px;
 }
 td:last-child {
     display: flex;
@@ -113,12 +127,6 @@ td:last-child {
 .right-side{
 	text-align: right;
 	width: 50%;
-}
-.table .show{
-	display: table-cell;
-}
-.table .hide{
-	display: none;
 }
 
 .form-group {
@@ -198,6 +206,28 @@ a:not(.button){
 }
 .material-icons{
 	color: #337ab7;
+    vertical-align: middle;
+}
+.records, .form-group{
+	border: 2px solid #fff;
+    border-radius: 11px;
+    padding: 12px;
+    background: #fff;
+    box-shadow: 7px 5px 16px;
+}
+#login-form{
+	align-items: center;
+    justify-content: center;
+    height: 80%;
+}
+#login-form input:not(input[type='submit']){
+	width: 100%;
+}
+#login-form .page-title{
+	text-align: center;
+}
+.nav-links li.active a {
+    color: white;
 }
 /*pagination */
 #pagination{
@@ -210,28 +240,28 @@ a:not(.button){
 }
 #pagination li {
     border: 1px solid #ccc;
-    padding: 5px 17px;
+    padding: 4px 12px;
     border-radius: 0;
-    border-collapse: collapse;
+	cursor: pointer;
 }
 #pagination li.active {
     background-color: #337ab7;
     border-color: #337ab7;
 }
-#pagination li a{
+#pagination li a{	
+	font-size: 16px;
 	margin: 0;
+}
+#previ .material-icons{
+	transform: rotate(180deg);
 }
 #pagination li.active a{
 	color: #fff;
     cursor: default;
 }
-#next i{
-	margin:10px;
+table th:not(.active) .sort{
+	display:none;
 }
-#prev i{
-	margin:10px;
-}
-#nextpage,#prevpage,.pagenumbers
-{
-	text-decoration:none;
+table th.active[data-order='1'] .sort{
+	transform: rotate(180deg);
 }

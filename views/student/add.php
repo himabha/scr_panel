@@ -20,10 +20,6 @@
 		<input type="email" name="email" required />
 	</div>
 	<div class="field-group">
-		<label for="detail">Password:</label>
-		<input type="password" name="password" required />
-	</div>
-	<div class="field-group">
 		<label for="detail">DOB:</label>
 		<input type="date" name="dob" required value="" min="1970-01-01" max="2030-12-31"/>
 	</div>

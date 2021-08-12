@@ -4,7 +4,7 @@ class Database
 	private $hostname = 'localhost';
 	private $username = 'root';
 	private $password = '';
-	private $dbname = 'student_cource';
+	private $dbname = 'student_course';
 	protected $connection;
 	public function __construct(){
 		

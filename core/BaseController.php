@@ -17,7 +17,11 @@ class BaseController{
 			$view->loadView($filepath, $data);
 		}
 		else{
-			throw new Exception('View not found');
+			//throw new Exception('View not found');
+			header("HTTP/1.0 404 Not Found");
+			echo "<h1>404 Not Found</h1>";
+			echo "View not Found.";
+			exit();
 		}
 	}
 	

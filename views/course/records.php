@@ -3,7 +3,7 @@
 	foreach($this->data['courses'] as $key => $course){
 		?>
 		<tr>
-			<td><?= $key + 1 ?></td>
+			<td><?= (isset($this->data['orderBy']) && isset($this->data['sort']) && $this->data['orderBy'] == 'id' && $this->data['sort'] == 'desc') ? count($this->data['courses']) - $key : $key + 1 ?></td>
 			<td><?= $course->course_name ?></td>
 			<td><?= $course->detail ?></td>
 			<td>

@@ -15,18 +15,22 @@
 		</div>
 		<div class="nav-links">
 			<ul>
-				<li><a href="/students">Students</a></li>
-				<li><a href="/courses">Courses</a></li>
-				<li><a href="/subscriptions">Subscriptions</a></li>
+				<li class="<?= (strpos($this->data['activeRoute'], "students") !== false || strpos($this->data['activeRoute'], "index") !== false) ? 'active' : '' ?>"><a href="/students">Students</a></li>
+				<li class="<?= (strpos($this->data['activeRoute'], "courses") !== false) ? 'active' : '' ?>"><a href="/courses">Courses</a></li>
+				<li class="<?= (strpos($this->data['activeRoute'], "subscriptions") !== false) ? 'active' : '' ?>"><a href="/subscriptions">Subscriptions</a></li>
+				<?php if($_SESSION['user']):?>
+				<li><a href="/logout">Logout</a></li>
+					<?php else:?>
 				<li><a href="/login">Login</a></li>
+				<?php endif; ?>
 			</ul>
 		</div>
 
 	</div>
 </div>
 <div class="container">
-<div class="row">
-	<div class="page-title"><?= $this->data['title'] ?></div>
-</div>
+	<div class="row">
+		<div class="page-title"><?= $this->data['title'] ?></div>
+	</div>
 
 

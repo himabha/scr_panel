@@ -10,12 +10,13 @@ class SubscriptionModel extends BaseModel{
 		return $this->tableName;
 	}
 	
-	public function getSubscriptions($searchBy = ''){
+	public function getSubscriptions($searchBy = '', $orderBy = 'id', $sort = 'asc'){
 		$where = "";
 		if(isset($searchBy) && !empty($searchBy)){
 			$where = " where c.course_name like :course_name OR s.firstname like :student_name OR s.lastname like :student_name OR sc.created_at like :created_at OR sc.modified_at like :modified_at";
 		}
-		$query = "Select sc.*, CONCAT(firstname, ' ', lastname) as fullname, course_name from subscriptions sc join students s on s.id = sc.student_id join courses c on c.id = sc.course_id".$where;
+		$orderBy = " order by ".$orderBy." ".$sort;
+		$query = "Select sc.*, CONCAT(s.firstname, ' ', s.lastname) as fullname, c.course_name as course from subscriptions sc join students s on s.id = sc.student_id join courses c on c.id = sc.course_id".$where.$orderBy;
 		$stm = $this->connection->prepare($query);
 		if(isset($searchBy) && !empty($searchBy)){
 			$stm->bindValue(':course_name', '%'.$searchBy.'%', PDO::PARAM_STR);
